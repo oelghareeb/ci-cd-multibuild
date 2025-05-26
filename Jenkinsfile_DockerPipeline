@@ -1,4 +1,3 @@
 @Library('session3') _
-def dockerPipeline = new org.lab3.DockerPipeline(this)
 
-dockerPipeline.runPipeline()
+dockerPipeline()
