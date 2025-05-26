@@ -1,0 +1,2 @@
+@Library('session3') _
+new org.lab3.DockerPipeline(this).runPipeline()
