@@ -19,7 +19,7 @@ pipeline {
         stage('Login to DockerHub') {
             steps {
                 script {
-                    lab3.login(env.DOCKER_USER, env.DOCKER_PASS)
+                    dockerx.login(env.DOCKER_USER, env.DOCKER_PASS)
                 }
             }
         }
@@ -27,8 +27,8 @@ pipeline {
         stage('Clone Repositories') {
             steps {
                 script {
-                    lab3.gitClone('https://github.com/oelghareeb/java.git', 'master', 'java')
-                    lab3.gitClone('https://github.com/oelghareeb/python-CI-CD.git', 'main', 'python')
+                    dockerx.gitClone('https://github.com/oelghareeb/java.git', 'master', 'java')
+                    dockerx.gitClone('https://github.com/oelghareeb/python-CI-CD.git', 'main', 'python')
                 }
             }
         }
@@ -39,8 +39,8 @@ pipeline {
                     steps {
                         dir('java') {
                             script {
-                                lab3.build('oelghareeb/java-app', 'latest')
-                                lab3.push('oelghareeb/java-app', 'latest')
+                                dockerx.build('oelghareeb/java-app', 'latest')
+                                dockerx.push('oelghareeb/java-app', 'latest')
                             }
                         }
                     }
@@ -50,8 +50,8 @@ pipeline {
                     steps {
                         dir('python') {
                             script {
-                                lab3.build('oelghareeb/python-app', 'latest')
-                                lab3.push('oelghareeb/python-app', 'latest')
+                                dockerx.build('oelghareeb/python-app', 'latest')
+                                dockerx.push('oelghareeb/python-app', 'latest')
                             }
                         }
                     }
