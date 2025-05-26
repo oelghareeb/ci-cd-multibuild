@@ -1,4 +1,5 @@
 @Library('session3')_
+def dockerx = new org.lab3.docker()
 
 pipeline {
     agent {
