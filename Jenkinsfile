@@ -1,11 +1,11 @@
 @Library('session3')_
 
-pipeline{
+pipeline {
     agent {
         label 'agent1'
     }
 
-    tools{
+    tools {
         jdk "java-8"
     }
 
@@ -18,7 +18,7 @@ pipeline{
         stage('Login to DockerHub') {
             steps {
                 script {
-                    org.lab3.login(env.DOCKER_USER, env.DOCKER_PASS)
+                    lab3.login(env.DOCKER_USER, env.DOCKER_PASS)
                 }
             }
         }
@@ -26,20 +26,20 @@ pipeline{
         stage('Clone Repositories') {
             steps {
                 script {
-                    org.lab3.gitClone('https://github.com/oelghareeb/java.git', 'master', 'java')
-                    org.lab3.gitClone('https://github.com/oelghareeb/python-CI-CD.git', 'main', 'python')
+                    lab3.gitClone('https://github.com/oelghareeb/java.git', 'master', 'java')
+                    lab3.gitClone('https://github.com/oelghareeb/python-CI-CD.git', 'main', 'python')
                 }
             }
         }
 
         stage('Build and Push Docker Images') {
-            parallel { // parallel to create and build the two images
+            parallel {
                 stage('Java Image') {
                     steps {
                         dir('java') {
                             script {
-                                org.lab3.build('oelghareeb/java-app', 'latest')
-                                org.lab3.push('oelghareeb/java-app', 'latest')
+                                lab3.build('oelghareeb/java-app', 'latest')
+                                lab3.push('oelghareeb/java-app', 'latest')
                             }
                         }
                     }
@@ -49,8 +49,8 @@ pipeline{
                     steps {
                         dir('python') {
                             script {
-                                org.lab3.build('oelghareeb/python-app', 'latest')
-                                org.lab3.push('oelghareeb/python-app', 'latest')
+                                lab3.build('oelghareeb/python-app', 'latest')
+                                lab3.push('oelghareeb/python-app', 'latest')
                             }
                         }
                     }
