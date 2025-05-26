@@ -37,11 +37,9 @@ pipeline {
             parallel {
                 stage('Java Image') {
                     steps {
-                        dir('java') {
-                            script {
-                                dockerx.build('oelghareeb/java-app', 'latest')
-                                dockerx.push('oelghareeb/java-app', 'latest')
-                            }
+                        script {
+                            dockerx.buildJava()
+                            dockerx.push('oelghareeb/java-app', 'latest')
                         }
                     }
                 }
